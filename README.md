@@ -1,4 +1,5 @@
 # linkedinlearning
+
 Centralized repo for linkedin learning courses I've taken on that platform!
 
 ## Resources
@@ -10,3 +11,4 @@ Centralized repo for linkedin learning courses I've taken on that platform!
 - [ ] <a href="https://www.linkedin.com/learning/level-up-go/">Level UP: Go</a>
 - [ ] <a href="https://www.linkedin.com/learning/generics-in-go/generics-in-go-1-18">Generics in Go</a>
 - [ ] <a href="https://www.linkedin.com/learning/go-recipes-practical-projects">Go recipes Practical projects</a>
+- [ ] <a href="https://www.linkedin.com/learning/learning-the-go-standard-library">GO standard Library</a>
