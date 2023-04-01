@@ -1,7 +1,13 @@
 package main
 
-import "fmt"
+import (
+	"bufio"
+	"fmt"
+	"os"
+)
 
 func main() {
-	fmt.Println("wecleom")
+	reader := bufio.NewReader(os.Stdin) // as a stream
+	s, _ := reader.ReadString('\n')     // until a fist occurance of delimiter
+	fmt.Println(s)
 }
