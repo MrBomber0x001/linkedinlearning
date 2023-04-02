@@ -1,47 +1,29 @@
 package main
 
 import (
-	"bytes"
-	"encoding/json"
-	"io"
-	"log"
-	"net/http"
-	"os"
+	"errors"
+	"fmt"
+	"math"
 )
 
-type Job struct {
-	User   string `json:"user"`
-	Action string `json:"action"`
-	Count  int    `json:"count"`
+var (
+	ErrNegSqrt    = errors.New("sqrt of negative number")
+	ErrNoSolution = errors.New("no solution found")
+)
+
+func Abs(val float64) float64 {
+	if val < 0 {
+		return -val
+	}
+	return val
 }
 
+func Sqrt(val float64) (float64, error) {
+	if val < 0.0 {
+		return 0.0, fmt.Errorf("error")
+	}
+	return math.Sqrt(val), nil
+}
 func main() {
-	// GET
-	resp, err := http.Get("https://httpbin.org/get")
-	if err != nil {
-		log.Fatal(err.Error())
-	}
-	defer resp.Body.Close()
 
-	io.Copy(os.Stdout, resp.Body)
-
-	// POST
-	job := &Job{
-		User:   "Meska",
-		Action: "Punch",
-		Count:  1,
-	}
-	var buff bytes.Buffer         // in memory reader and writer
-	enc := json.NewEncoder(&buff) // encode the data into the buffer!
-	if err := enc.Encode(job); err != nil {
-		log.Fatal(err.Error())
-	}
-
-	resp, err = http.Post("https://httpbin.org/post", "application/json", &buff)
-	if err != nil {
-		log.Fatal(err.Error())
-	}
-	defer resp.Body.Close()
-
-	io.Copy(os.Stdout, resp.Body)
 }

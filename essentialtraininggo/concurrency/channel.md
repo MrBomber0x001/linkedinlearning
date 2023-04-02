@@ -98,3 +98,55 @@ ch := make(chan int, 1)
  val2 := <-ch
  fmt.Printf("value: %d", val2) // deadlock, only one reciever!
 ```
+
+TASK: refactor the GetContentType to work with channels
+
+```go
+package main
+
+import (
+ "fmt"
+ "net/http"
+)
+
+func main() {
+ urls := []string{
+  "https://amazon.com",
+  "https://facebook.com",
+  "https://google.com",
+  "https://netflix.com",
+ }
+
+ // create response channel
+ ch := make(chan string)
+ // start the senders
+ for _, url := range urls {
+  go GetContenType(url, ch)
+ }
+ // start receievers
+ for range urls {
+  out := <-ch
+  fmt.Println(out)
+ }
+
+}
+
+func GetContenType(url string, out chan string) {
+ resp, err := http.Get(url)
+ // send the error through the channel
+ if err != nil {
+  out <- fmt.Sprintf("%s -> error: %s", url, err)
+  return
+ }
+
+ defer resp.Body.Close()
+
+ ctype := resp.Header.Get("content-type")
+
+ if ctype == "" {
+  fmt.Println("content type is not found")
+  return
+ }
+ out <- fmt.Sprintf("%s -> %s", url, ctype)
+}
+```
