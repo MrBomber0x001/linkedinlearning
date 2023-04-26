@@ -98,4 +98,40 @@ type Orderd interface {
 }
 ```
 
+## Type Inference
+
+### Function argument type inference
+
+There're some steps first  for the compiler to infere the type
+
+1. `first pass`: ignore untypes constants
+2. `second pass`: Unify restuls with untyped constants
+3. `Inference`: Check if inference if possible or not .
+If we tried to remove the type from
+
+```go
+busniess.PrintGeneric[business.Solar](solar2k)
+```
+
+to
+
+```go
+busniess.PrintGeneric(solar2k)
+```
+
+the compiler will infer the type!
+
+### Constraint type inference
+
 ## Generics Best Practices
+
+## Generics in Practice
+
+Use generics to avoid boilerplate code
+Narrow down type parameters
+For which types would I write the function without generics
+
+Use cases:
+
+1. Data structures (LinkedLists, Stacks, Queues, etc);
+2. Type-independents

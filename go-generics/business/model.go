@@ -1,12 +1,18 @@
 package business
 
-import "fmt"
+import (
+	"fmt"
+	"math"
+
+	"golang.org/x/exp/slices"
+)
 
 type Solar struct {
 	Name  string
 	Netto float64
 }
 
+type SolarSlice []Solar
 type Wind struct {
 	Name  string
 	Netto float64
@@ -38,4 +44,16 @@ func PrintSlice[T Energy](tt []T) {
 	}
 }
 
+func PrintSlice2[T Energy, S ~[]T](tt []S) {
+	for i, t := range tt {
+		fmt.Printf("%d: %s\n", i, PrintGeneric[T](t))
+	}
+}
+
 var kinetecoPrint string = "Kineteco Deal:"
+
+func SortByCost[T Energy](a []T) {
+	slices.SortFunc(a, func(a, b T) bool {
+		return a.Cost() < b.Cost() || math.IsNaN(a.Cost()) && !math.IsNaN(b.Cost())
+	})
+}
