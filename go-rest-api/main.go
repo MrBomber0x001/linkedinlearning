@@ -23,7 +23,7 @@ func main() {
 		fmt.Println("got here")
 		fmt.Println(err.Error())
 	}
-	rows, err := db.Query("SELECT id, name, inventory, price FROM products")
+	rows, err := db.Query("SELECT id, name, inventory, pricce FROM products")
 	if err != nil {
 		fmt.Println(err.Error())
 	}

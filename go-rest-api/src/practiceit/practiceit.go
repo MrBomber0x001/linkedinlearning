@@ -12,9 +12,3 @@ func main() {
 
 	a.Run()
 }
-
-func calculateDimensions(length, width, height int) (area int, volume int) {
-	area = length * width * height
-	volume = length * height
-	return
-}
