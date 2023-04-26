@@ -150,3 +150,57 @@ func TestCsv(t *testing.T) {
  }
 }
 ```
+
+## Benchmarking
+
+you need to install graphize
+
+go test -bench . -run NONE -cpuprofile=cpu.prof
+or
+go tool pprof -http=:8080 cpu.prof
+
+`tokenize.go`
+
+```go
+package main
+
+import (
+ "regexp"
+ "strings"
+)
+
+var (
+ wordRe = regexp.MustCompile(`\w+`)
+)
+
+func Tokenize(text string) []string {
+ var tokens []string
+ for _, tok := range wordRe.FindAllString(text, -1) {
+  tok = strings.ToLower(tok)
+  tokens = append(tokens, tok)
+ }
+
+ return tokens
+}
+```
+
+`bench_test.go`
+
+```go
+package main
+
+import (
+ "testing"
+
+ "github.com/stretchr/testify/require"
+)
+
+var benchText = "Don't communicate by sharing memory, share memory by communicating"
+
+func BenchmarkTokenize(b *testing.B) {
+ for i := 0; i < b.N; i++ {
+  tokens := Tokenize(benchText)
+  require.Equal(b, 10, len(tokens))
+ }
+}
+```
