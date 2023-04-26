@@ -1,0 +1,10 @@
+2023/04/04 11:37:06 error: open /path/to/config.tml: The system cannot find the path specified.
+can't open configuration file
+main.readConfig
+	C:/Users/ncm/Desktop/linkedinlearning/essentialtraininggo/main.go:17
+main.main
+	C:/Users/ncm/Desktop/linkedinlearning/essentialtraininggo/main.go:33
+runtime.main
+	C:/Program Files/Go/src/runtime/proc.go:250
+runtime.goexit
+	C:/Program Files/Go/src/runtime/asm_amd64.s:1571
